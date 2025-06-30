@@ -10,7 +10,15 @@ export const BackgroundImage = styled.img`
   object-fit: cover;
 `;
 
-export const LoginImage = styled.img``;
+export const LoginImage = styled.img`
+  width: 202px;
+`;
+
+export const TitleLogin = styled.h1`
+  color: #006397;
+  font-weight: bold;
+  margin: 20px 0;
+`;
 
 export const ContainerLogin = styled.div`
   display: flex;
@@ -27,6 +35,7 @@ export const LimitedContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 498px;
   margin: 22px;
