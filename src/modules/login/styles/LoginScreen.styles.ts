@@ -39,5 +39,4 @@ export const LimitedContainer = styled.div`
   width: 100%;
   max-width: 498px;
   margin: 22px;
-  border: solid black 2px;
 `;
