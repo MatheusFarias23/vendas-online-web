@@ -40,16 +40,25 @@ const LoginScreen = () => {
         email: email,
         password: password,
       },
+      //Estamos usando uma biblioteca (axios) para enviar uma requisição POST para a URL: "http://localhost:8080/auth". Está enviando como corpor da requisição (data) os dados "email" e "password".
     })
       .then((result) => {
+        //"then" é chamado quando a requisição dá certo
         alert('Fez login');
         return result.data;
       })
       .catch(() => {
+        //"catch" é chamado quando a requisição falha
         alert('Usuário ou senha inválido');
       });
     //"axios()" aqui estamos usando 'axios' (uma biblioteca pra fazer requisições HTTP, tipo buscar dados de um servidor) para enviar dados pro backend. E como isso demora um pouco, ele coloca um "await" para dizer: 'Espere o servior responder antes de continuar para a próxima linha';
   };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if(event.key === "Enter"){
+      handleLogin();
+    }
+  }
 
   return (
     <div>
@@ -59,7 +68,13 @@ const LoginScreen = () => {
           <LoginImage src="./logo.png" />
           <TitleLogin>LOGIN</TitleLogin>
           <Input title="USUÁRIO:" onChange={handleEmail} value={email} />
-          <Input type="password" title="SENHA:" onChange={handlePassWord} value={password} />
+          <Input
+            type="password"
+            title="SENHA:"
+            onChange={handlePassWord}
+            value={password}
+            onKeyDown={handleKeyDown}
+          />
           <Button type="primary" margin="64px 0px 16px" onClick={handleLogin}>
             ENTRAR
           </Button>
