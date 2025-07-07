@@ -10,10 +10,6 @@ export const BackgroundImage = styled.img`
   object-fit: cover;
 `;
 
-export const LoginImage = styled.img`
-  width: 202px;
-`;
-
 export const TitleLogin = styled.h1`
   color: #006397;
   font-weight: bold;
