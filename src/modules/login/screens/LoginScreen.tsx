@@ -1,8 +1,9 @@
+import Input from '../../../shared/components/inputs/input/Input';
+import Button from '../../../shared/components/buttons/button/Button';
+import SVGLogo from '../../../shared/components/icons/SVGHome';
 import { useState } from 'react';
-import axios from 'axios';
-import Button from '../../../shared/buttons/button/Button';
-import Input from '../../../shared/inputs/input/Input';
-import SVGLogo from '../../../shared/icons/SVGHome';
+import { useRequests } from '../../../shared/hooks/useRequests';
+import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import {
   BackgroundImage,
   ContainerLogin,
@@ -11,12 +12,14 @@ import {
 } from '../styles/LoginScreen.styles';
 
 const LoginScreen = () => {
+  const { accessToken, setAccessToken } = useGlobalContext();
   //O "useState" serve para criar um estado, ou seja, guardar um valor que pode mudar com o tempo (ex: um input que o usuário preenche).
   const [email, setEmail] = useState('');
   //"userName" é a variável de estado (valor).
   //"setUserName" é a função que muda o valor.
   //"useState('')" o '' é o valor inicial (nesse caso, string vazia).
   const [password, setPassWord] = useState('');
+  const { postRequest, loading } = useRequests();
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     //" (event: React.ChangeEvent<HTMLInputElement>)" esse é o parâmetro da função, ou seja, o valor que ela recebe quando é chamada.
@@ -32,33 +35,19 @@ const LoginScreen = () => {
   };
 
   const handleLogin = async () => {
-    //"async" faz a função ser assincrona, porque vai fazer algo que demora: uma requisição HTTP.
-    await axios({
-      method: 'post',
-      url: 'http://localhost:8080/auth',
-      data: {
-        email: email,
-        password: password,
-      },
-      //Estamos usando uma biblioteca (axios) para enviar uma requisição POST para a URL: "http://localhost:8080/auth". Está enviando como corpor da requisição (data) os dados "email" e "password".
-    })
-      .then((result) => {
-        //"then" é chamado quando a requisição dá certo
-        alert('Fez login');
-        return result.data;
-      })
-      .catch(() => {
-        //"catch" é chamado quando a requisição falha
-        alert('Usuário ou senha inválido');
-      });
-    //"axios()" aqui estamos usando 'axios' (uma biblioteca pra fazer requisições HTTP, tipo buscar dados de um servidor) para enviar dados pro backend. E como isso demora um pouco, ele coloca um "await" para dizer: 'Espere o servior responder antes de continuar para a próxima linha';
+    setAccessToken('novo token');
+    const result = await postRequest('http://localhost:8080/auth', {
+      email: email,
+      password: password,
+    });
+    console.log(result);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if(event.key === "Enter"){
+    if (event.key === 'Enter') {
       handleLogin();
     }
-  }
+  };
 
   return (
     <div>
@@ -66,7 +55,7 @@ const LoginScreen = () => {
       <ContainerLogin>
         <LimitedContainer>
           <SVGLogo />
-          <TitleLogin>LOGIN</TitleLogin>
+          <TitleLogin>LOGIN ({accessToken})</TitleLogin>
           <Input title="USUÁRIO:" onChange={handleEmail} value={email} />
           <Input
             type="password"
@@ -75,7 +64,7 @@ const LoginScreen = () => {
             value={password}
             onKeyDown={handleKeyDown}
           />
-          <Button type="primary" margin="64px 0px 16px" onClick={handleLogin}>
+          <Button type="primary" margin="64px 0px 16px" onClick={handleLogin} loading={loading}>
             ENTRAR
           </Button>
         </LimitedContainer>
