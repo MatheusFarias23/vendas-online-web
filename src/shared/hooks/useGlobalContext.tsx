@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-
+//Testando aqui
 interface GlobalData {
   accessToken?: string;
 }
