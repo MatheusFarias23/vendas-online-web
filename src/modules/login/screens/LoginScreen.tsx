@@ -27,7 +27,7 @@ const LoginScreen = () => {
     //"React.ChangeEvent<HTMLInputElement>" isso é o tipo do evento. Esse evento é um 'ChangeEvent' (mudança de valor) vindo de um '<input>' HTML.
     setEmail(event.target.value);
     //"event.target.value" => "event.target" é o elemento HTML que gerou o evento, ou seja, o <input>. "event.target.value" é o valor digitado no input.
-    //"setUserName(event.target.value)" => Esse é o momento em que você atualiza o estado com o novo valor do input. Ex: pegue o que pessoa digitou no input e salve dentro da variavel 'username'.
+    //"setEmail(event.target.value)" => Esse é o momento em que você atualiza o estado com o novo valor do input. Ex: pegue o que pessoa digitou no input e salve dentro da variavel 'username'.
   };
 
   const handlePassWord = (event: React.ChangeEvent<HTMLInputElement>) => {
