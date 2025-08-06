@@ -1,7 +1,17 @@
 import { createContext, useContext, useState } from 'react';
 //"createContext" cria o contexto. "useContext" acessa o contexto de dentro de componentes. "useState" para guardar o valor que será compartilhado (como o token).
+
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
+interface NotificationProps {
+  message: string;
+  type: NotificationType;
+  description?: string;
+}
+
 interface GlobalData {
   accessToken?: string;
+  notifcation?: NotificationProps;
 }
 
 interface GlobalContextProps {
@@ -45,8 +55,21 @@ export const useGlobalContext = () => {
     });
   };
 
+  const setNotification = (message: string, type: NotificationType, description?: string) => {
+    setGlobalData({
+      ...globalData,
+      notifcation: {
+        message,
+        type,
+        description
+      }
+    })
+  }
+
   return {
+    notification: globalData?.notifcation,
     accessToken: globalData?.accessToken,
     setAccessToken,
+    setNotification,
   };
 };

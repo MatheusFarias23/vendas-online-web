@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useGlobalContext } from './useGlobalContext';
 
 export const useRequests = () => {
   const [loading, setLoading] = useState(false);
   //Cria o estado "loading", que começa com false. Ele vai ser usado para indicar se a requisição está em andamento (ex: mostrar "carregando...").
+  const { setNotification } = useGlobalContext();
 
   const getRequest = async (url: string) => {
     setLoading(true);
@@ -31,12 +33,12 @@ export const useRequests = () => {
     })
       .then((result) => {
         //"then" é chamado quando a requisição dá certo
-        alert('Fez login!');
+        setNotification('Entrando...', 'success');
         return result.data;
       })
       .catch(() => {
         //"catch" é chamado quando a requisição falha
-        alert('Erro');
+        setNotification('Senha inválida', 'error');
       });
     //"axios()" aqui estamos usando 'axios' (uma biblioteca pra fazer requisições HTTP, tipo buscar dados de um servidor) para enviar dados pro backend. E como isso demora um pouco, ele coloca um "await" para dizer: 'Espere o servior responder antes de continuar para a próxima linha';
     setLoading(false);
