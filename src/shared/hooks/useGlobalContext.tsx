@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { getAuthorizationToken, setAuthorizationToken } from '../functions/connection/auth';
 //"createContext" cria o contexto. "useContext" acessa o contexto de dentro de componentes. "useState" para guardar o valor que será compartilhado (como o token).
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
@@ -45,8 +46,16 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
 export const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
+  useEffect(() => {
+    const token = getAuthorizationToken();
+    if (token) {
+      setAccessToken(token);
+    }
+  }, []);
+
   const setAccessToken = (accessToken: string) => {
     //É uma função qu atualiza o 'accessToken', mas mantém qualquer outro dado salvo no 'globalData'.
+    setAuthorizationToken(accessToken);
     setGlobalData({
       ...globalData,
       //"...globalData" copia todos os dados anteriores (caso a gente tenha mais dados depois, como nome do usúario, etc).

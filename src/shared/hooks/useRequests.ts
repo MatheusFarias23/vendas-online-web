@@ -24,9 +24,9 @@ export const useRequests = () => {
     setLoading(false);
   };
 
-  const postRequest = async (url: string, body: unknown) => {
+  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
     setLoading(true);
-    const returnData = await connectionAPIPost(url, body)
+    const returnData = await connectionAPIPost<T>(url, body)
       .then((result) => {
         //"then" é chamado quando a requisição dá certo
         setNotification('Login...', 'success', 'Entrando em sua conta.');
@@ -34,7 +34,8 @@ export const useRequests = () => {
       })
       .catch(() => {
         //"catch" é chamado quando a requisição falha
-        setNotification('Senha inválida', 'error', 'Senha ou email errados');
+        setNotification('Dados inválidos', 'error', 'Senha ou email estão incorretos.');
+        return undefined;
       });
     //"axios()" aqui estamos usando 'axios' (uma biblioteca pra fazer requisições HTTP, tipo buscar dados de um servidor) para enviar dados pro backend. E como isso demora um pouco, ele coloca um "await" para dizer: 'Espere o servior responder antes de continuar para a próxima linha';
     setLoading(false);
