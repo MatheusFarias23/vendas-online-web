@@ -3,7 +3,6 @@ import Button from '../../../shared/components/buttons/button/Button';
 import SVGLogo from '../../../shared/components/icons/SVGHome';
 import { useState } from 'react';
 import { useRequests } from '../../../shared/hooks/useRequests';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 import {
   BackgroundImage,
   ContainerLogin,
@@ -13,7 +12,6 @@ import {
 import type { UserType } from '../types/userType';
 
 const LoginScreen = () => {
-  const { accessToken, setAccessToken } = useGlobalContext();
   //O "useState" serve para criar um estado, ou seja, guardar um valor que pode mudar com o tempo (ex: um input que o usuário preenche).
   const [email, setEmail] = useState('');
   //"userName" é a variável de estado (valor).
@@ -35,12 +33,12 @@ const LoginScreen = () => {
     setPassWord(event.target.value);
   };
 
-  const handleLogin = async () => {    
-    const user = await postRequest<UserType>('http://localhost:8080/auth', {
+  const handleLogin = () => {    
+    postRequest<UserType>('http://localhost:8080/auth', {
+      //"postRequest<UserType>" espera que a resposta sega o formato da interface 'UserType'.
       email: email,
       password: password,
     });
-    setAccessToken(user?.accessToken || '');
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -55,7 +53,7 @@ const LoginScreen = () => {
       <ContainerLogin>
         <LimitedContainer>
           <SVGLogo />
-          <TitleLogin>LOGIN ({accessToken})</TitleLogin>
+          <TitleLogin>LOGIN</TitleLogin>
           <Input title="USUÁRIO:" onChange={handleEmail} value={email} />
           <Input
             type="password"

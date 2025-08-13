@@ -1,16 +1,12 @@
-import { createBrowserRouter, RouterProvider, type RouteObject } from 'react-router-dom';
-import { LoginRoutes } from './modules/login/routes';
+import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import { useNotification } from './shared/hooks/useNotification';
 
-const MainRoutes: RouteObject[] = [
-  {
-    path: '/',
-    element: <div>Tela Principal</div>,
-    errorElement: <div>Página não encontrada.</div>,
-  },
-];
+import { LoginRoutes } from './modules/login/routes';
+import { firstScreenRoutes } from './modules/firstScreen/routes';
+import { productScreens } from './modules/product/routes';
 
-const router = createBrowserRouter([...MainRoutes, ...LoginRoutes]);
+
+const router = createBrowserRouter([...firstScreenRoutes, ...LoginRoutes, ...productScreens]);
 
 function App() {
   const { contextHolder } = useNotification();

@@ -11,10 +11,10 @@ export const useNotification = () => {
 
   useEffect(() => {
     //"useEffect" é chamado toda vez que a dependencia dentro de [] mudar. Aqui, ele será executado sempre que 'notificaiton' mudar.
-    if(notification?.message && notification.type) {
+    if (notification?.message && notification.type) {
       //"if(notification?.message && notification.type)" Verifica se a notificação existe e se tem uma 'message' e um 'type' válido (como 'success', 'error', etc).
       //"notification?.message" Usa 'optional chaining' para evitar erro caso 'notification' seja 'undefined'.
-      
+
       api[notification.type]({
         message: `${notification.message}`,
         description: notification.description,
