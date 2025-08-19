@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getAuthorizationToken, setAuthorizationToken } from '../functions/connection/auth';
+/*import { getAuthorizationToken, setAuthorizationToken } from '../functions/connection/auth';*/
 //"createContext" cria o contexto. "useContext" acessa o contexto de dentro de componentes. "useState" para guardar o valor que será compartilhado (como o token).
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
@@ -11,7 +11,7 @@ interface NotificationProps {
 }
 
 interface GlobalData {
-  accessToken?: string;
+  /*accessToken?: string;*/
   notification?: NotificationProps;
 }
 
@@ -46,7 +46,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
 export const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const token = getAuthorizationToken();
     //Busca o token no 'localStorage'.
     if (token) {
@@ -65,7 +65,7 @@ export const useGlobalContext = () => {
       accessToken,
       //"accessToken" depois sobrescreve ou adiciona essa chave.
     });
-  };
+  };*/
 
   const setNotification = (message: string, type: NotificationType, description?: string) => {
     setGlobalData({
@@ -80,8 +80,8 @@ export const useGlobalContext = () => {
 
   return {
     notification: globalData?.notification,
-    accessToken: globalData?.accessToken,
-    setAccessToken,
+    /*accessToken: globalData?.accessToken,*/
+    /*setAccessToken,*/
     setNotification,
   };
 };

@@ -1,25 +1,34 @@
-import axios from 'axios';
+import axios, { type AxiosRequestConfig } from 'axios';
 import { MethodsEnum } from '../../enums/methods.enums';
 import { ERROR_ACCESS_DENIED, ERROR_CONNECTION } from '../../constants/errosStatus';
+import { getAuthorizationToken } from './auth';
 
 export default class ConnectionAPI {
   static async call<T>(url: string, method: string, body?: unknown): Promise<T> {
     //"call" é um método puro que faz a requisição HTTP usando axios e retorna os dados (.data), ele não trata erros, só executa a chamada.
+
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: getAuthorizationToken(),
+        'Content-Type': 'application/json',
+      }
+    }
+
     switch (method) {
       //"switch" o switch permite escolher o método HTTP (GET, POST, etc) de forma centralizada. Ao inves de escrever 'axios.get(...)' espalhado por todo o projeto, fica tudo num só lugar.
       case MethodsEnum.GET:
-        return (await axios.get<T>(url)).data;
+        return (await axios.get<T>(url, config)).data;
       //"(await axios.get<T>(url)).data" 'await' espera a requisição terminar, e o '.data' pega somente o corpo da resposta (o 'axios' retorna um objeto com várias informações). O '<T>' informa ao TypeScript o formato dos dados que vamos receber.
       case MethodsEnum.DELETE:
-        return (await axios.delete<T>(url)).data;
+        return (await axios.delete<T>(url, config)).data;
       case MethodsEnum.POST:
-        return (await axios.post<T>(url, body)).data;
+        return (await axios.post<T>(url, body, config)).data;
       //O 'body' só é passado quando o método suporta envio de dados (POST, PUT e PATCH).
       case MethodsEnum.PUT:
-        return (await axios.put<T>(url, body)).data;
+        return (await axios.put<T>(url, body, config)).data;
       case MethodsEnum.PATCH:
       default:
-        return (await axios.patch<T>(url, body)).data;
+        return (await axios.patch<T>(url, body, config)).data;
     }
   }
 

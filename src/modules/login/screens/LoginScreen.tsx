@@ -9,7 +9,6 @@ import {
   LimitedContainer,
   TitleLogin,
 } from '../styles/LoginScreen.styles';
-import type { UserType } from '../types/userType';
 
 const LoginScreen = () => {
   //O "useState" serve para criar um estado, ou seja, guardar um valor que pode mudar com o tempo (ex: um input que o usuário preenche).
@@ -18,7 +17,7 @@ const LoginScreen = () => {
   //"setUserName" é a função que muda o valor.
   //"useState('')" o '' é o valor inicial (nesse caso, string vazia).
   const [password, setPassWord] = useState('');
-  const { postRequest, loading } = useRequests();
+  const { authRequest, loading } = useRequests();
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     //" (event: React.ChangeEvent<HTMLInputElement>)" esse é o parâmetro da função, ou seja, o valor que ela recebe quando é chamada.
@@ -34,7 +33,7 @@ const LoginScreen = () => {
   };
 
   const handleLogin = () => {    
-    postRequest<UserType>('http://localhost:8080/auth', {
+    authRequest({
       //"postRequest<UserType>" espera que a resposta sega o formato da interface 'UserType'.
       email: email,
       password: password,
