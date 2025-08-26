@@ -5,5 +5,4 @@ export interface UserType {
   phone: string;
   cpf: string;
 }
-//Interface que define o formato esperado da resposta de login:
-//"accessToken" token de autentificação.
+//Interface que define o formato esperado da resposta de login. Descreve a ficha do usuário, usado para tipar os dados.

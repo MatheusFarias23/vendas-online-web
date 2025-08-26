@@ -8,11 +8,15 @@ export default class ConnectionAPI {
     //"call" é um método puro que faz a requisição HTTP usando axios e retorna os dados (.data), ele não trata erros, só executa a chamada.
 
     const config: AxiosRequestConfig = {
+      //"const config: AxiosRequestConfig = { ... }" aqui estamos criando um objeto de configuração para o Axios.
       headers: {
+        //"headers" são cabeçalhos HTTP que vão junto na requisição.
         Authorization: getAuthorizationToken(),
+        //Essa é a parte mais importante: adiciona o token no cabeçalho da requisição. A função 'getAuthorizationToken()' pega o token salvo no 'localStorage' e retona no formato certo (geralmente 'Bearer <token>').
         'Content-Type': 'application/json',
-      }
-    }
+        //Informa que o corpo da requisição está sendo enviado em JSON. Isso é necessário, por exemplo, em requisição 'POST' ou 'PUT'
+      },
+    };
 
     switch (method) {
       //"switch" o switch permite escolher o método HTTP (GET, POST, etc) de forma centralizada. Ao inves de escrever 'axios.get(...)' espalhado por todo o projeto, fica tudo num só lugar.

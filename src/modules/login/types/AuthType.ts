@@ -1,6 +1,7 @@
-import type { UserType } from "./userType";
+import type { UserType } from './userType';
 
 export interface AuthType {
-    accessToken: string;
-    user: UserType;
+  accessToken: string;
+  user: UserType;
 }
+//'AuthType' é como se fosse um molde da resposta do login: um token + dados do usuário.

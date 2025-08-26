@@ -13,7 +13,7 @@ export const useRequests = () => {
   const [loading, setLoading] = useState(false);
   //Cria o estado "loading", que começa com false. Ele vai ser usado para indicar se a requisição está em andamento (ex: mostrar "carregando...").
   const navigate = useNavigate();
-  const { setNotification } = useGlobalContext();
+  const { setNotification, setUser } = useGlobalContext();
 
   const getRequest = async (url: string) => {
     setLoading(true);
@@ -53,14 +53,13 @@ export const useRequests = () => {
     setLoading(true);
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
-        //"then" é chamado quando a requisição dá certo
-        setNotification('Login...', 'success', 'Você fez login.');
+        setNotification('Login...', 'success', 'Você entrou em sua conta.');
+        setUser(result.user);
         setAuthorizationToken(result.accessToken);
         navigate(ProductRoutesEnum.PRODUCT);
         return result;
       })
       .catch(() => {
-        //"catch" é chamado quando a requisição falha
         setNotification(ERROR_INVALID_DATA, 'error');
       });
     setLoading(false);

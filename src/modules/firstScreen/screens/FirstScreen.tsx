@@ -15,13 +15,14 @@ const FirstScreen = () => {
       const token = getAuthorizationToken();
       if (token) {
         await connectionAPIGet(URL_USER)
-        .then(() => {
-           navigate(ProductRoutesEnum.PRODUCT);
-        })
-        .catch(() => {
-          removeAuthorizationToken();
-          navigate(LoginRoutesEnum.LOGIN);
-        });       
+          //Essa chamada vai na API (ex: http://localhost:8080/user) e pergunta: "Esse token realmente corresponde a um usuários valido?"
+          .then(() => {
+            navigate(ProductRoutesEnum.PRODUCT);
+          })
+          .catch(() => {
+            removeAuthorizationToken();
+            navigate(LoginRoutesEnum.LOGIN);
+          });       
       } else {
         navigate(LoginRoutesEnum.LOGIN);
       }

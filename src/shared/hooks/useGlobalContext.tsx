@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import type { UserType } from '../../modules/login/types/userType';
 /*import { getAuthorizationToken, setAuthorizationToken } from '../functions/connection/auth';*/
 //"createContext" cria o contexto. "useContext" acessa o contexto de dentro de componentes. "useState" para guardar o valor que será compartilhado (como o token).
 
@@ -11,8 +12,8 @@ interface NotificationProps {
 }
 
 interface GlobalData {
-  /*accessToken?: string;*/
   notification?: NotificationProps;
+  user?: UserType;
 }
 
 interface GlobalContextProps {
@@ -46,27 +47,6 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
 export const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
-  /*useEffect(() => {
-    const token = getAuthorizationToken();
-    //Busca o token no 'localStorage'.
-    if (token) {
-      setAccessToken(token);
-      //Se encontrar, coloca no contexto (setAccessToken).
-    }
-  }, []);
-
-  const setAccessToken = (accessToken: string) => {
-    //É uma função qu atualiza o 'accessToken', mas mantém qualquer outro dado salvo no 'globalData'.
-    setAuthorizationToken(accessToken);
-    //Salva no 'localStorage'. Garante que o token fique salvo mesmo após recarregar a página.
-    setGlobalData({
-      ...globalData,
-      //"...globalData" copia todos os dados anteriores (caso a gente tenha mais dados depois, como nome do usúario, etc).
-      accessToken,
-      //"accessToken" depois sobrescreve ou adiciona essa chave.
-    });
-  };*/
-
   const setNotification = (message: string, type: NotificationType, description?: string) => {
     setGlobalData({
       ...globalData,
@@ -77,11 +57,17 @@ export const useGlobalContext = () => {
       }
     })
   }
+  const setUser = (user: UserType) => {
+    setGlobalData({
+      ...globalData,
+      user,
+    })
+  }
 
   return {
     notification: globalData?.notification,
-    /*accessToken: globalData?.accessToken,*/
-    /*setAccessToken,*/
+    user: globalData?.user,
+    setUser,
     setNotification,
   };
 };
