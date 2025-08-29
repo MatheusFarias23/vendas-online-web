@@ -27,6 +27,7 @@ export const verifyLoggedIn = async (setUser: (user: UserType) => void, user?: U
   if (!user) {
     await connectionAPIGet<UserType>(URL_USER).then((userReturn) => {
       setUser(userReturn);
+      //salva os dados no 'useGlobalContext' e depois re-renderiza a pagina novamente, porém com os dados salvos e mantando o usuário na pagina atual em que se encontra.
     }).catch(() => {
       removeAuthorizationToken();
       location.href = LoginRoutesEnum.LOGIN;
