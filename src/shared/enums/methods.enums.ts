@@ -1,9 +1,9 @@
 export enum MethodsEnum {
-  GET = 'GET',
-  POST = 'POST',
-  DELETE = 'DELETE',
-  PATCH = 'PATCH',
-  PUT = 'PUT',
+  GET = 'get',
+  DELETE = 'delete',
+  POST = 'post',
+  PUT = 'put',
+  PATCH = 'patch',
 }
 //No TypeScript, um 'enum' (abreviação de enumeration) é uma forma de criar um conjunto de valores nomeados, geralmente constantes, que você pode usar no código para evitar "strings magicas" ou números soltos espalhados. Ele serve para:
 //1 - organizar valores fixos em um único lugar.

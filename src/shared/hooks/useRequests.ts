@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useGlobalContext } from './useGlobalContext';
-import { connectionAPIPost } from '../functions/connection/connectionAPI';
+import ConnectionAPI, { connectionAPIPost, type methodType } from '../functions/connection/connectionAPI';
 import { URL_AUTH } from '../constants/urls';
 import { ERROR_INVALID_DATA } from '../constants/errosStatus';
 import { useNavigate } from 'react-router';
@@ -15,20 +14,22 @@ export const useRequests = () => {
   const navigate = useNavigate();
   const { setNotification, setUser } = useGlobalContext();
 
-  const getRequest = async (url: string) => {
+  const request = async <T>(url: string, method: methodType, saveGlobal?: (object: T) => void, body?: unknown): Promise<T | undefined> => {
     setLoading(true);
     //Antes de iniciar a requisição. define "loading = true" (para exibir algum indicador visual, por exemplo) .
-    return await axios({
-      method: 'get',
-      url: url,
-    })
+    const returnObject: T | undefined = await ConnectionAPI.connect<T>(url, method, body)
       .then((result) => {
-        return result.data;
+        if (saveGlobal) {
+          saveGlobal(result);
+        }
+        return result;
       })
-      .catch(() => {
-        alert('Erro');
+      .catch((error: Error) => {
+        setNotification(error.message, 'error');
+        return undefined;
       });
     setLoading(false);
+    return returnObject;
   };
 
   const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
@@ -68,7 +69,7 @@ export const useRequests = () => {
   return {
     loading,
     authRequest,
-    getRequest,
+    request,
     postRequest,
   };
 };
