@@ -16,7 +16,6 @@ export const useRequests = () => {
 
   const request = async <T>(url: string, method: methodType, saveGlobal?: (object: T) => void, body?: unknown): Promise<T | undefined> => {
     setLoading(true);
-    //Antes de iniciar a requisição. define "loading = true" (para exibir algum indicador visual, por exemplo) .
     const returnObject: T | undefined = await ConnectionAPI.connect<T>(url, method, body)
       .then((result) => {
         if (saveGlobal) {
@@ -30,24 +29,6 @@ export const useRequests = () => {
       });
     setLoading(false);
     return returnObject;
-  };
-
-  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
-    setLoading(true);
-    const returnData = await connectionAPIPost<T>(url, body)
-      .then((result) => {
-        //"then" é chamado quando a requisição dá certo
-        setNotification('Login...', 'success', 'Entrando em sua conta.');
-        return result;
-      })
-      .catch(() => {
-        //"catch" é chamado quando a requisição falha
-        setNotification('Dados inválidos', 'error', 'Senha ou email estão incorretos.');
-        return undefined;
-      });
-    //"axios()" aqui estamos usando 'axios' (uma biblioteca pra fazer requisições HTTP, tipo buscar dados de um servidor) para enviar dados pro backend. E como isso demora um pouco, ele coloca um "await" para dizer: 'Espere o servior responder antes de continuar para a próxima linha';
-    setLoading(false);
-    return returnData;
   };
 
   const authRequest = async (body: unknown): Promise<void> => {
@@ -70,6 +51,5 @@ export const useRequests = () => {
     loading,
     authRequest,
     request,
-    postRequest,
   };
 };

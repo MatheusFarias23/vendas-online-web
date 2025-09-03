@@ -1,13 +1,13 @@
 import './main.css';
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { GlobalProvider } from './shared/hooks/useGlobalContext';
+import { DataProvider } from './shared/hooks/useDataContext';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <GlobalProvider>
+  <GlobalProvider>
+    <DataProvider>
       <App />
-    </GlobalProvider>
-  </StrictMode>,
+    </DataProvider>
+  </GlobalProvider>,
 );
