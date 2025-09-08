@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import type { ProductType } from '../../modules/product/types/ProductType';
+import type { ProductType } from '../types/ProductType';
 
 interface DataContext {
   products?: ProductType[];
@@ -18,11 +18,7 @@ interface DataProviderProps {
 
 export const DataProvider = ({ children }: DataProviderProps) => {
   const [data, setData] = useState<DataContext>({});
-  return (
-    <DataContext.Provider value={{ data, setData }}>
-      {children}
-    </DataContext.Provider>
-  );
+  return <DataContext.Provider value={{ data, setData }}>{children}</DataContext.Provider>;
 };
 
 export const useDataContext = () => {
@@ -32,8 +28,8 @@ export const useDataContext = () => {
     setData({
       ...data,
       products,
-    })
-  }
+    });
+  };
 
   return {
     products: data?.products || [],

@@ -3,23 +3,30 @@ import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { URL_PRODUCT } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enums';
-import type { ProductType } from '../types/ProductType';
+import type { ProductType } from '../../../shared/types/ProductType';
 import TableAntd from '../../../shared/components/table/Table';
 import type { TableProps } from 'antd';
-
+import CategoryColumn from '../components/CategoryColumn';
+import ToolTipImage from '../components/ToolTipImage';
 
 const columns: TableProps<ProductType>['columns'] = [
   {
     title: 'Id',
     dataIndex: 'id',
     key: 'id',
-    render: (text) => <a>{text}</a>,
+    render: (_, product) => <ToolTipImage product={product}/>,
   },
   {
     title: 'Nome',
     dataIndex: 'name',
     key: 'name',
     render: (text) => <a>{text}</a>,
+  },
+  {
+    title: 'Categoria',
+    dataIndex: 'category',
+    key: 'category',
+    render: (_, product) => <CategoryColumn category={product.category} />,
   },
   {
     title: 'Preço',

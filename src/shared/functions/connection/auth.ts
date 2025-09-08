@@ -1,5 +1,5 @@
 //Esse arquivo é responsavel por lidar especificamente com o token.
-import type { UserType } from '../../../modules/login/types/userType';
+import type { UserType } from '../../types/UserType';
 import { AUTHORIZATION_KEY } from '../../constants/authorizationConstants';
 import { getItemStorage, removeItemStorage, setItemStorage } from './storageProxy';
 import { connectionAPIGet } from './connectionAPI';
@@ -24,11 +24,10 @@ export const verifyLoggedIn = async () => {
   if (!token) {
     location.href = LoginRoutesEnum.LOGIN;
   }
-  await connectionAPIGet<UserType>(URL_USER)
-    .catch(() => {
-      removeAuthorizationToken();
-      location.href = LoginRoutesEnum.LOGIN;
-    });
+  await connectionAPIGet<UserType>(URL_USER).catch(() => {
+    removeAuthorizationToken();
+    location.href = LoginRoutesEnum.LOGIN;
+  });
 
   return null;
 };

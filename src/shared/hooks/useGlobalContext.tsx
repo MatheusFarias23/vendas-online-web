@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import type { UserType } from '../../modules/login/types/userType';
+import type { UserType } from '../types/UserType';
 /*import { getAuthorizationToken, setAuthorizationToken } from '../functions/connection/auth';*/
 //"createContext" cria o contexto. "useContext" acessa o contexto de dentro de componentes. "useState" para guardar o valor que será compartilhado (como o token).
 
@@ -53,16 +53,16 @@ export const useGlobalContext = () => {
       notification: {
         message,
         type,
-        description
-      }
-    })
-  }
+        description,
+      },
+    });
+  };
   const setUser = (user: UserType) => {
     setGlobalData({
       ...globalData,
       user,
-    })
-  }
+    });
+  };
 
   return {
     notification: globalData?.notification,
