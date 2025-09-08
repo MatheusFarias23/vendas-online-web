@@ -11,7 +11,6 @@ import type { AuthType } from '../../modules/login/types/AuthType';
 export const useRequests = () => {
   const [loading, setLoading] = useState(false);
   //Cria o estado "loading", que começa com false. Ele vai ser usado para indicar se a requisição está em andamento (ex: mostrar "carregando...").
-  const navigate = useNavigate();
   const { setNotification, setUser } = useGlobalContext();
 
   const request = async <T>(url: string, method: methodType, saveGlobal?: (object: T) => void, body?: unknown): Promise<T | undefined> => {
@@ -32,6 +31,7 @@ export const useRequests = () => {
   };
 
   const authRequest = async (body: unknown): Promise<void> => {
+    const navigate = useNavigate();
     setLoading(true);
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {

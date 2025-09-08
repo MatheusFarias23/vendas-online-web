@@ -19,19 +19,16 @@ export const removeAuthorizationToken = () => removeItemStorage(AUTHORIZATION_KE
 export const getAuthorizationToken = () => getItemStorage(AUTHORIZATION_KEY);
 //Busca o token no 'localStorage'.
 
-export const verifyLoggedIn = async (setUser: (user: UserType) => void, user?: UserType) => {
+export const verifyLoggedIn = async () => {
   const token = getAuthorizationToken();
   if (!token) {
     location.href = LoginRoutesEnum.LOGIN;
   }
-  if (!user) {
-    await connectionAPIGet<UserType>(URL_USER).then((userReturn) => {
-      setUser(userReturn);
-      //salva os dados no 'useGlobalContext' e depois re-renderiza a pagina novamente, porém com os dados salvos e mantando o usuário na pagina atual em que se encontra.
-    }).catch(() => {
+  await connectionAPIGet<UserType>(URL_USER)
+    .catch(() => {
       removeAuthorizationToken();
       location.href = LoginRoutesEnum.LOGIN;
-    })
-  }
+    });
+
   return null;
 };
