@@ -5,7 +5,7 @@ const {Text} = Typography;
 
 export const BoxInput = styled.div`
   width: 100%;
-  margin-top: 32px;
+  margin-top: 20px;
 `;
 
 export const TitleInput = styled(Text)`
