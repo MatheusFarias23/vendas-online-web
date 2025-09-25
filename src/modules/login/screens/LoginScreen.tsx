@@ -9,6 +9,7 @@ import {
   LimitedContainer,
   TitleLogin,
 } from '../styles/LoginScreen.styles';
+import { useNavigate } from 'react-router';
 
 const LoginScreen = () => {
   //O "useState" serve para criar um estado, ou seja, guardar um valor que pode mudar com o tempo (ex: um input que o usuário preenche).
@@ -18,6 +19,7 @@ const LoginScreen = () => {
   //"useState('')" o '' é o valor inicial (nesse caso, string vazia).
   const [password, setPassWord] = useState('');
   const { authRequest, loading } = useRequests();
+  const navigate = useNavigate();
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     //" (event: React.ChangeEvent<HTMLInputElement>)" esse é o parâmetro da função, ou seja, o valor que ela recebe quando é chamada.
@@ -32,12 +34,12 @@ const LoginScreen = () => {
     setPassWord(event.target.value);
   };
 
-  const handleLogin = () => {    
-    authRequest({
+  const handleLogin = async () => {    
+    await authRequest({
       //"postRequest<UserType>" espera que a resposta sega o formato da interface 'UserType'.
       email: email,
       password: password,
-    });
+    }, navigate);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

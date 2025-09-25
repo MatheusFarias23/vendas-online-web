@@ -3,10 +3,10 @@ import { useGlobalContext } from './useGlobalContext';
 import ConnectionAPI, { connectionAPIPost, type methodType } from '../functions/connection/connectionAPI';
 import { URL_AUTH } from '../constants/urls';
 import { ERROR_INVALID_DATA } from '../constants/errosStatus';
-import { useNavigate } from 'react-router';
 import { ProductRoutesEnum } from '../../modules/product/routes';
 import { setAuthorizationToken } from '../functions/connection/auth';
-import type { AuthType } from '../../modules/login/types/AuthType';
+import type { AuthType } from '../types/AuthType';
+
 
 export const useRequests = () => {
   const [loading, setLoading] = useState(false);
@@ -30,8 +30,7 @@ export const useRequests = () => {
     return returnObject;
   };
 
-  const authRequest = async (body: unknown): Promise<void> => {
-    const navigate = useNavigate();
+  const authRequest = async (body: unknown, navigate: (path: string) => void): Promise<void> => {
     setLoading(true);
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
