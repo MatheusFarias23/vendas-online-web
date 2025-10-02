@@ -1,6 +1,6 @@
 export interface InsertProduct {
     name: string;
-    price: number;
+    price?: number;
     image: string;
     categoryId?: number;
 }

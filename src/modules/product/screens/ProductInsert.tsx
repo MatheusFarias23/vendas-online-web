@@ -5,22 +5,26 @@ import { ProductRoutesEnum } from '../routes';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { MethodsEnum } from '../../../shared/enums/methods.enums';
 import { URL_CATEGORY, URL_PRODUCT } from '../../../shared/constants/urls';
-import { LimitedContainer } from '../styles/productInsert.styles';
+import { ProductInsertContainer } from '../styles/productInsert.styles';
 import Input from '../../../shared/components/inputs/input/Input';
 import Button from '../../../shared/components/buttons/button/Button';
 import Select from '../../../shared/components/inputs/select/Select';
 import type { InsertProduct } from '../../../shared/dtos/InsertProduct.dto';
 import { connectionAPIPost } from '../../../shared/functions/connection/connectionAPI';
-
+import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
+import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
+import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
 
 const ProductInsert = () => {
-  const [ product, setProduct ] = useState<InsertProduct>({
+  const [product, setProduct] = useState<InsertProduct>({
     name: '',
-    price: 0,
+    price: undefined,
     image: '',
+    categoryId: undefined,
   });
   const { categories, setCategories } = useDataContext();
   const { request } = useRequests();
+  const { setNotification } = useGlobalContext();
 
   useEffect(() => {
     if (categories.length === 0) {
@@ -28,29 +32,45 @@ const ProductInsert = () => {
     }
   }, []);
 
-  const handleInsertProduct = () => {
-    connectionAPIPost(URL_PRODUCT, product);
-  }
-
-  const onChangePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProduct({
-      ...product,
-      price: Number(event.target.value),
+  const handleInsertProduct = async () => {
+    await connectionAPIPost(URL_PRODUCT, product).then(() => {
+      setNotification('Sucesso', 'success', 'O produto foi inserido corretamente');
+      setProduct({
+        name: '',
+        price: undefined,
+        image: '',
+        categoryId: undefined,
+      });
+    }).catch(() => {
+      setNotification('Erro', 'error', 'Não foi possivel inserir o produto')
     });
   };
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>, nameObject: string) => {
+  const handleOnClickCancel = () => {
+    setProduct({
+      name: '',
+      price: undefined,
+      image: '',
+      categoryId: undefined,
+    });
+  };
+
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    nameObject: string,
+    isNumber?: boolean,
+  ) => {
     setProduct({
       ...product,
-      [nameObject]: event.target.value,
-    })
-  }
+      [nameObject]: isNumber ? Number(event.target.value) : event.target.value,
+    });
+  };
 
   const handleChange = (value: string) => {
     setProduct({
       ...product,
       categoryId: Number(value),
-    })
+    });
     console.log(`selected ${value}`);
   };
 
@@ -69,23 +89,50 @@ const ProductInsert = () => {
         },
       ]}
     >
-      <LimitedContainer>
-        <Input onChange={(event) => onChange(event, 'name')} value={product.name} title="Nome" placeholder="Nome" />
-        <Input onChange={onChangePrice} value={product.price} title="Preço" placeholder="Preço" />
-        <Input onChange={(event) => onChange(event, 'image')} value={product.image} title="URL Imagem" placeholder="URL Imagem" />
-        <Select
-          title='Categoria'          
-          onChange={handleChange}
-          options={
-            categories.map((category) => ({
+      <ProductInsertContainer>
+        <LimitedContainer width={400}>
+          <Input
+            onChange={(event) => onChange(event, 'name')}
+            value={product.name}
+            title="Nome"
+            placeholder="Digite o nome"
+          />
+          <Input
+            onChange={(event) => onChange(event, 'price', true)}
+            value={product.price ?? ''}
+            title="Preço"
+            placeholder="Digite o preço"
+          />
+          <Input
+            onChange={(event) => onChange(event, 'image')}
+            value={product.image}
+            title="URL Imagem"
+            placeholder="Insira a url da imagem"
+          />
+          <Select
+            title="Categoria"
+            placeholder="Escolha a cateogira"
+            onChange={handleChange}
+            value={product.categoryId ? String(product.categoryId) : undefined}
+            options={categories.map((category) => ({
               value: `${category.id}`,
-              label: `${category.name}`
+              label: `${category.name}`,
             }))}
-        />
-        <Button onClick={handleInsertProduct} margin="30px 0" type="primary">
-          Inserir Produto
-        </Button>
-      </LimitedContainer>
+          />
+          <DisplayFlexJustifyRight>
+            <LimitedContainer margin="0px 15px" width={120}>
+              <Button onClick={handleInsertProduct} margin="30px 0" type="primary">
+                Inserir Produto
+              </Button>
+            </LimitedContainer>
+            <LimitedContainer width={120}>
+              <Button danger onClick={handleOnClickCancel} margin="30px 0 " type="primary">
+                Cancelar
+              </Button>
+            </LimitedContainer>
+          </DisplayFlexJustifyRight>
+        </LimitedContainer>
+      </ProductInsertContainer>
     </Screen>
   );
 };
