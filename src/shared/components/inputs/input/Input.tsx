@@ -2,8 +2,9 @@ import { Input as InputAntd } from 'antd';
 import type { InputProps as InputPropsAntd} from 'antd';
 import { BoxInput, TitleInput } from './Input.styles';
 
-interface InputProps extends InputPropsAntd {
+export interface InputProps extends InputPropsAntd {
   title?: string;
+  margin?: string;
   //A interface no TypeScript serve para definir o formato das props que o componente espera receber.
   //title?: prop 'title' é opcional e do tipo string
   //'InputProps extends InputPropsAntd' aceita tudo o que o InputAntd aceita (value, onChange, placeholder...)
