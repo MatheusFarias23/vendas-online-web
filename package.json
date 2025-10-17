@@ -10,6 +10,7 @@
     "lint": "npm run lint:format && npm run lint:fix "
   },
   "dependencies": {
+    "@ant-design/icons": "^5.6.1",
     "@remix-run/router": "^1.23.0",
     "antd": "^5.26.2",
     "axios": "^1.10.0",
