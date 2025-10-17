@@ -5,6 +5,7 @@ import { getItemStorage, removeItemStorage, setItemStorage } from './storageProx
 import { connectionAPIGet } from './connectionAPI';
 import { URL_USER } from '../../constants/urls';
 import { LoginRoutesEnum } from '../../../modules/login/routes';
+import { redirect, type NavigateFunction } from 'react-router';
 
 export const setAuthorizationToken = (token?: string) => {
   if (token) {
@@ -22,17 +23,18 @@ export const getAuthorizationToken = () => getItemStorage(AUTHORIZATION_KEY);
 export const verifyLoggedIn = async () => {
   const token = getAuthorizationToken();
   if (!token) {
-    location.href = LoginRoutesEnum.LOGIN;
+    return redirect(LoginRoutesEnum.LOGIN);
   }
-  await connectionAPIGet<UserType>(URL_USER).catch(() => {
+  const user = await connectionAPIGet<UserType>(URL_USER).catch(() => {
     removeAuthorizationToken();
-    location.href = LoginRoutesEnum.LOGIN;
   });
-
+  if (!user) {
+    return redirect(LoginRoutesEnum.LOGIN);
+  }
   return null;
 };
 
-export const logout = () => {
+export const logout = (navigate: NavigateFunction) => {
   removeAuthorizationToken();
-  location.href = LoginRoutesEnum.LOGIN;
-}
+  navigate(LoginRoutesEnum.LOGIN);
+};

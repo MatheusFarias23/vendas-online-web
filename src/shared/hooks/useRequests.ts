@@ -6,6 +6,7 @@ import { ERROR_INVALID_DATA } from '../constants/errosStatus';
 import { ProductRoutesEnum } from '../../modules/product/routes';
 import { setAuthorizationToken } from '../functions/connection/auth';
 import type { AuthType } from '../types/AuthType';
+import type { NavigateFunction } from 'react-router';
 
 
 export const useRequests = () => {
@@ -30,7 +31,7 @@ export const useRequests = () => {
     return returnObject;
   };
 
-  const authRequest = async (body: unknown, navigate: (path: string) => void): Promise<void> => {
+  const authRequest = async (body: unknown, navigate: NavigateFunction): Promise<void> => {
     setLoading(true);
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
