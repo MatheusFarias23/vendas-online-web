@@ -1,8 +1,7 @@
 import { logout } from '../../functions/connection/auth';
 import { HeaderContainer, LogoExit } from './header.style';
-import React, { useState } from 'react';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Modal, Space } from 'antd';
+import { useState } from 'react';
+import { Modal } from 'antd';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
