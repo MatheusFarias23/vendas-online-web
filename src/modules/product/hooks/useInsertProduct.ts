@@ -66,7 +66,7 @@ export const useInsertProduct = () => {
       .catch(() => {
         setNotification('Erro', 'error', 'Não foi possivel inserir o produto');
       });
-      setLoading(false);
+    setLoading(false);
   };
 
   return {

@@ -27,17 +27,17 @@ const InputMoney = ({ value, addonBefore = 'R$', onChange, ...props }: InputMone
     //0006
     const sizeSlice = valueRemoved.length - DECIMAL_SIZE;
     const newValue = [
-        valueRemoved.slice(0, sizeSlice), //00
-        '.',
-        valueRemoved.slice(sizeSlice), //06
+      valueRemoved.slice(0, sizeSlice), //00
+      '.',
+      valueRemoved.slice(sizeSlice), //06
     ].join('');
     //00.06
     onChange({
-        ...event,
-        target: {
-            ...event.target,
-            value: newValue,
-        },
+      ...event,
+      target: {
+        ...event.target,
+        value: newValue,
+      },
     });
   };
 

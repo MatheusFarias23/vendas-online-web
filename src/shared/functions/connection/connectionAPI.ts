@@ -31,7 +31,7 @@ export default class ConnectionAPI {
       case MethodsEnum.PUT:
       case MethodsEnum.PATCH:
         return (await axios[method]<T>(url, body, config)).data;
-        //O 'body' só é passado quando o método suporta envio de dados (POST, PUT e PATCH).
+      //O 'body' só é passado quando o método suporta envio de dados (POST, PUT e PATCH).
     }
   }
 

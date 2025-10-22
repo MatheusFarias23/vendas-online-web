@@ -17,5 +17,5 @@ export const HeaderContainer = styled.header`
 `;
 
 export const LogoExit = styled(LogoutOutlined)`
-    font-size: 25px;
+  font-size: 25px;
 `;

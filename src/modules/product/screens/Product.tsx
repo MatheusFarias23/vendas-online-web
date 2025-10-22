@@ -59,7 +59,7 @@ const ListBreadcrumb = [
 
 const Product = () => {
   const { products, setProducts } = useDataContext();
-  const [ productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
+  const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
   const { request } = useRequests();
   const navigate = useNavigate();
 
@@ -81,8 +81,8 @@ const Product = () => {
     //"trim()" remove espaços em branco no começo e no fim (ex: " cam " vira "cam")
     //"toLowerCase()" transforma tudo em minusculas para fazer a busca 'case-insensitive' (não diferenciar maiuscula de miniscula).
     if (!term) {
-      setProductsFiltered([...products])
-    }else {
+      setProductsFiltered([...products]);
+    } else {
       setProductsFiltered(products.filter((product) => product.name.toLowerCase().includes(value)));
       //"products.filter(...)" cria um novo array contendo apenas os produtos cujo 'name' satisfaça a condição.
     }

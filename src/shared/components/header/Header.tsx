@@ -20,12 +20,11 @@ const Header = () => {
       <Modal
         title="Deseja sair da sua conta?"
         open={open}
-        onOk={(() => logout(navigate))}
+        onOk={() => logout(navigate)}
         onCancel={hideModal}
         okText="Sim"
         cancelText="Não"
-      >
-      </Modal>
+      ></Modal>
       <HeaderContainer>
         <LogoExit onClick={showModal} />
       </HeaderContainer>

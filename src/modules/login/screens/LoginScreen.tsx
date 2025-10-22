@@ -34,12 +34,15 @@ const LoginScreen = () => {
     setPassWord(event.target.value);
   };
 
-  const handleLogin = async () => {    
-    await authRequest({
-      //"postRequest<UserType>" espera que a resposta sega o formato da interface 'UserType'.
-      email: email,
-      password: password,
-    }, navigate);
+  const handleLogin = async () => {
+    await authRequest(
+      {
+        //"postRequest<UserType>" espera que a resposta sega o formato da interface 'UserType'.
+        email: email,
+        password: password,
+      },
+      navigate,
+    );
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

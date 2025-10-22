@@ -1,10 +1,17 @@
 import { ContainerLogoName, ContainerMenu, LogoMenu, NameCompany } from './menu.style';
 import { useState } from 'react';
-import { HomeOutlined, LaptopOutlined, ProfileOutlined, SafetyCertificateOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  LaptopOutlined,
+  ProfileOutlined,
+  SafetyCertificateOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu as MenuAntd } from 'antd';
 import { useNavigate } from 'react-router';
 import { ProductRoutesEnum } from '../../../modules/product/routes';
+import { CategoryRoutesEnum } from '../../../modules/category/routes';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -44,8 +51,8 @@ const Menu = () => {
       label: 'Categorias',
       icon: <ProfileOutlined />,
       children: [
-        { key: 'category_view', label: 'Opção 1', onClick: () => null },
-        { key: '10', label: 'Opção 2', onClick: () => null },
+        { key: 'category_view', label: 'Vizualizar', onClick: () => navigate(CategoryRoutesEnum.CATEGORY) },
+        { key: 'category_insert', label: 'Inserir', onClick: () => navigate(CategoryRoutesEnum.CATEGORY_INSERT) },
       ],
     },
     {
@@ -53,8 +60,8 @@ const Menu = () => {
       label: 'Pedidos',
       icon: <SafetyCertificateOutlined />,
       children: [
-        { key: '9', label: 'Opção 3', onClick: () => null },
-        { key: '10', label: 'Opção 4', onClick: () => null },
+        { key: '3', label: 'Opção 3', onClick: () => null },
+        { key: '4', label: 'Opção 4', onClick: () => null },
       ],
     },
     {
@@ -62,8 +69,8 @@ const Menu = () => {
       label: 'Clientes',
       icon: <UserOutlined />,
       children: [
-        { key: '9', label: 'Opção 5', onClick: () => null },
-        { key: '10', label: 'Opção 6', onClick: () => null },
+        { key: '5', label: 'Opção 5', onClick: () => null },
+        { key: '6', label: 'Opção 6', onClick: () => null },
       ],
     },
   ];

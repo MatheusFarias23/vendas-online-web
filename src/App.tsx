@@ -9,9 +9,10 @@ import { useEffect } from 'react';
 import { URL_USER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enums';
 import { useGlobalContext } from './shared/hooks/useGlobalContext';
+import { categoryScreens } from './modules/category/routes';
 
 const routes: RouteObject[] = [...LoginRoutes];
-const routesLoggedIn: RouteObject[] = [...productScreens, ...firstScreenRoutes].map((route) => ({
+const routesLoggedIn: RouteObject[] = [...productScreens, ...categoryScreens, ...firstScreenRoutes].map((route) => ({
   //".map" vai percorrer cada objeto dentro do array 'productScreens'. Se tiver mais de um 'path' dentro do array 'productScreens' ou apenas um 'path' ele irá percorrer por todos. O parâmetro 'route' é cada objeto de rota (ex: path). Ou seja, se o 'productScreens' tiver 2 rotas. o '.map' vai chamar a função 2 vezes, uma vez para cada rota.
   ...route,
   //"...route" copia todas as propriedades originais da rota.

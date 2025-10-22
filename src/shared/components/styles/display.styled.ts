@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DisplayFlex = styled.div`
-    display: flex;
+  display: flex;
 `;
 
 export const DisplayFlexJustifyRight = styled(DisplayFlex)`
-    justify-content: right;
+  justify-content: right;
 `;

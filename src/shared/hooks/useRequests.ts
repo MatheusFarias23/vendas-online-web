@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useGlobalContext } from './useGlobalContext';
-import ConnectionAPI, { connectionAPIPost, type methodType } from '../functions/connection/connectionAPI';
+import ConnectionAPI, {
+  connectionAPIPost,
+  type methodType,
+} from '../functions/connection/connectionAPI';
 import { URL_AUTH } from '../constants/urls';
 import { ERROR_INVALID_DATA } from '../constants/errosStatus';
 import { ProductRoutesEnum } from '../../modules/product/routes';
@@ -8,13 +11,17 @@ import { setAuthorizationToken } from '../functions/connection/auth';
 import type { AuthType } from '../types/AuthType';
 import type { NavigateFunction } from 'react-router';
 
-
 export const useRequests = () => {
   const [loading, setLoading] = useState(false);
   //Cria o estado "loading", que começa com false. Ele vai ser usado para indicar se a requisição está em andamento (ex: mostrar "carregando...").
   const { setNotification, setUser } = useGlobalContext();
 
-  const request = async <T>(url: string, method: methodType, saveGlobal?: (object: T) => void, body?: unknown): Promise<T | undefined> => {
+  const request = async <T>(
+    url: string,
+    method: methodType,
+    saveGlobal?: (object: T) => void,
+    body?: unknown,
+  ): Promise<T | undefined> => {
     setLoading(true);
     const returnObject: T | undefined = await ConnectionAPI.connect<T>(url, method, body)
       .then((result) => {

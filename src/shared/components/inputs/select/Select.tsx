@@ -1,4 +1,4 @@
-import { Select as SelectAntd} from 'antd';
+import { Select as SelectAntd } from 'antd';
 import type { SelectProps as SelectPropsAntd } from 'antd';
 import { BoxSelect, TitleSelect } from './select.style';
 

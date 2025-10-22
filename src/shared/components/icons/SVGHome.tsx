@@ -1,4 +1,3 @@
-
 const SVGLogo = ({ ...props }: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg

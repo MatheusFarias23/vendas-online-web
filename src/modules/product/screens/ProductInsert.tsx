@@ -1,10 +1,5 @@
-import { useEffect } from 'react';
 import Screen from '../../../shared/components/screen/Screen';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { ProductRoutesEnum } from '../routes';
-import { useRequests } from '../../../shared/hooks/useRequests';
-import { MethodsEnum } from '../../../shared/enums/methods.enums';
-import { URL_CATEGORY } from '../../../shared/constants/urls';
 import { ProductInsertContainer } from '../styles/productInsert.styles';
 import Input from '../../../shared/components/inputs/input/Input';
 import Button from '../../../shared/components/buttons/button/Button';
@@ -13,17 +8,19 @@ import { LimitedContainer } from '../../../shared/components/styles/limited.styl
 import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
 import InputMoney from '../../../shared/components/inputs/inputMoney/InputMoney';
 import { useInsertProduct } from '../hooks/useInsertProduct';
+import { useCategory } from '../../category/hooks/useCategory';
 
 const ProductInsert = () => {
-  const { request } = useRequests();
-  const { categories, setCategories } = useDataContext();
-  const { loading, product, disabledButton, handleOnClickCancel, onChangeInput, handleChangeSelect, handleInsertProduct } = useInsertProduct();
-
-  useEffect(() => {
-    if (categories.length === 0) {
-      request(URL_CATEGORY, MethodsEnum.GET, setCategories);
-    }
-  }, []);
+  const { categories } = useCategory();
+  const {
+    loading,
+    product,
+    disabledButton,
+    handleOnClickCancel,
+    onChangeInput,
+    handleChangeSelect,
+    handleInsertProduct,
+  } = useInsertProduct();
 
   return (
     <Screen
@@ -72,7 +69,13 @@ const ProductInsert = () => {
           />
           <DisplayFlexJustifyRight>
             <LimitedContainer margin="0px 15px" width={120}>
-              <Button loading={loading} disabled={disabledButton} onClick={handleInsertProduct} margin="30px 0" type="primary">
+              <Button
+                loading={loading}
+                disabled={disabledButton}
+                onClick={handleInsertProduct}
+                margin="30px 0"
+                type="primary"
+              >
                 Inserir Produto
               </Button>
             </LimitedContainer>
