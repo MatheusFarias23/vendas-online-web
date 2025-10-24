@@ -13,7 +13,8 @@ import Screen from '../../../shared/components/screen/Screen';
 import Button from '../../../shared/components/buttons/button/Button';
 import { useNavigate } from 'react-router';
 import { ProductRoutesEnum } from '../routes';
-import { BoxButtons, LimitedSizeButton, LimitedSizeInput } from '../styles/product.style';
+import { LimitedSizeButton, LimitedSizeInput } from '../../../shared/components/styles/limited.styled';
+import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.styled';
 
 const { Search } = Input;
 
@@ -90,7 +91,7 @@ const Product = () => {
 
   return (
     <Screen listBreadcrumb={ListBreadcrumb}>
-      <BoxButtons>
+      <DisplayFlexJustifyBetween>
         <LimitedSizeInput>
           <Search placeholder="Buscar produto" onSearch={onSearch} enterButton />
         </LimitedSizeInput>
@@ -99,7 +100,7 @@ const Product = () => {
             Inserir Produto
           </Button>
         </LimitedSizeButton>
-      </BoxButtons>
+      </DisplayFlexJustifyBetween>
       <TableAntd<ProductType> columns={columns} dataSource={productsFiltered} />
     </Screen>
   );

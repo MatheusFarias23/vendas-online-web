@@ -36,7 +36,7 @@ const Menu = () => {
       children: [
         {
           key: 'products_view',
-          label: 'Vizualizar',
+          label: 'Visualizar',
           onClick: () => navigate(ProductRoutesEnum.PRODUCT),
         },
         {
@@ -51,7 +51,7 @@ const Menu = () => {
       label: 'Categorias',
       icon: <ProfileOutlined />,
       children: [
-        { key: 'category_view', label: 'Vizualizar', onClick: () => navigate(CategoryRoutesEnum.CATEGORY) },
+        { key: 'category_view', label: 'Visualizar', onClick: () => navigate(CategoryRoutesEnum.CATEGORY) },
         { key: 'category_insert', label: 'Inserir', onClick: () => navigate(CategoryRoutesEnum.CATEGORY_INSERT) },
       ],
     },

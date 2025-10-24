@@ -3,6 +3,7 @@ import { useDataContext } from "../../../shared/hooks/useDataContext"
 import { useRequests } from "../../../shared/hooks/useRequests";
 import { URL_CATEGORY } from "../../../shared/constants/urls";
 import { MethodsEnum } from "../../../shared/enums/methods.enums";
+import type { CategoryType } from "../../../shared/types/CategoryType";
 
 
 export const useCategory = () => {
@@ -11,7 +12,7 @@ export const useCategory = () => {
 
     useEffect(() => {
         if (!categories || categories.length === 0) {
-            request(URL_CATEGORY, MethodsEnum.GET, setCategories)
+            request<CategoryType[]>(URL_CATEGORY, MethodsEnum.GET, setCategories)
         }
     }, []);
 
