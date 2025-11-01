@@ -1,17 +1,16 @@
 import Screen from '../../../shared/components/screen/Screen';
 import { ProductRoutesEnum } from '../routes';
-import { ProductInsertContainer } from '../styles/productInsert.styles';
 import Input from '../../../shared/components/inputs/input/Input';
 import Button from '../../../shared/components/buttons/button/Button';
 import Select from '../../../shared/components/inputs/select/Select';
 import { LimitedContainer } from '../../../shared/components/styles/limited.styled';
-import { DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
+import { DisplayFlexJustifyCenter, DisplayFlexJustifyRight } from '../../../shared/components/styles/display.styled';
 import InputMoney from '../../../shared/components/inputs/inputMoney/InputMoney';
 import { useInsertProduct } from '../hooks/useInsertProduct';
-import { useCategory } from '../../category/hooks/useCategory';
+import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useCategoryReducer';
 
 const ProductInsert = () => {
-  const { categories } = useCategory();
+  const { category } = useCategoryReducer();
   const {
     loading,
     product,
@@ -37,7 +36,7 @@ const ProductInsert = () => {
         },
       ]}
     >
-      <ProductInsertContainer>
+      <DisplayFlexJustifyCenter>
         <LimitedContainer width={400}>
           <Input
             onChange={(event) => onChangeInput(event, 'name')}
@@ -62,7 +61,7 @@ const ProductInsert = () => {
             placeholder="Escolha a cateogira"
             onChange={handleChangeSelect}
             value={product.categoryId ? String(product.categoryId) : undefined}
-            options={categories.map((category) => ({
+            options={category.map((category) => ({
               value: `${category.id}`,
               label: `${category.name}`,
             }))}
@@ -86,7 +85,7 @@ const ProductInsert = () => {
             </LimitedContainer>
           </DisplayFlexJustifyRight>
         </LimitedContainer>
-      </ProductInsertContainer>
+      </DisplayFlexJustifyCenter>
     </Screen>
   );
 };

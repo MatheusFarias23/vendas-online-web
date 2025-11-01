@@ -13,3 +13,9 @@ export const DisplayFlexJustifyBetween = styled.div`
   justify-content: space-between;
   margin: 16px 0;
 `;
+
+export const DisplayFlexJustifyCenter = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;

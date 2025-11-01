@@ -2,13 +2,16 @@ import { Input, type TableProps } from 'antd';
 import Screen from '../../../shared/components/screen/Screen';
 import TableAntd from '../../../shared/components/table/Table';
 import type { CategoryType } from '../../../shared/types/CategoryType';
-import { useCategory } from '../hooks/useCategory';
 import Button from '../../../shared/components/buttons/button/Button';
 import { useNavigate } from 'react-router';
 import { CategoryRoutesEnum } from '../routes';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { LimitedSizeButton, LimitedSizeInput } from '../../../shared/components/styles/limited.styled';
 import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.styled';
+import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useCategoryReducer';
+import { URL_CATEGORY } from '../../../shared/constants/urls';
+import { MethodsEnum } from '../../../shared/enums/methods.enums';
+import { useRequests } from '../../../shared/hooks/useRequests';
 
 const { Search } = Input;
 
@@ -36,12 +39,19 @@ const columns: TableProps<CategoryType>['columns'] = [
 
 const Category = () => {
   const [ categoryFiltered, setCategoryFiltered ] = useState<CategoryType[]>([]);
-  const { categories } = useCategory();
+  const { category, setCategory } = useCategoryReducer();
+  const { request } = useRequests();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setCategoryFiltered(categories);
-  }, [categories]);
+    setCategoryFiltered([...category]);
+  }, [category]);
+
+  useEffect(() => {
+    if (!category || category.length === 0) {
+      request<CategoryType[]>(URL_CATEGORY, MethodsEnum.GET, setCategory);
+    }
+  }, []);
 
   const handleCategoryInsert = () => {
     navigate(CategoryRoutesEnum.CATEGORY_INSERT);
@@ -51,10 +61,10 @@ const Category = () => {
     const term = value.trim().toLowerCase();
 
     if (!term) {
-      setCategoryFiltered([...categories]);
+      setCategoryFiltered([...category]);
     } else {
       setCategoryFiltered(
-        categories.filter((category) => category.name.toLowerCase().includes(value)),
+        category.filter((category) => category.name.toLowerCase().includes(value)),
       );
     }
   };

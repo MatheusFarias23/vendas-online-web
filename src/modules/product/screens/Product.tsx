@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useDataContext } from '../../../shared/hooks/useDataContext';
 import { useRequests } from '../../../shared/hooks/useRequests';
 import { URL_PRODUCT } from '../../../shared/constants/urls';
 import { MethodsEnum } from '../../../shared/enums/methods.enums';
@@ -13,8 +12,12 @@ import Screen from '../../../shared/components/screen/Screen';
 import Button from '../../../shared/components/buttons/button/Button';
 import { useNavigate } from 'react-router';
 import { ProductRoutesEnum } from '../routes';
-import { LimitedSizeButton, LimitedSizeInput } from '../../../shared/components/styles/limited.styled';
+import {
+  LimitedSizeButton,
+  LimitedSizeInput,
+} from '../../../shared/components/styles/limited.styled';
 import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.styled';
+import { useProductReducer } from '../../../store/reducers/productReducer/useProductReducer';
 
 const { Search } = Input;
 
@@ -59,13 +62,13 @@ const ListBreadcrumb = [
 ];
 
 const Product = () => {
-  const { products, setProducts } = useDataContext();
+  const { products, setProducts } = useProductReducer();
   const [productsFiltered, setProductsFiltered] = useState<ProductType[]>([]);
   const { request } = useRequests();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setProductsFiltered(products);
+    setProductsFiltered([...products]);
   }, [products]);
   //Toda vez que 'products' (do useDataContext) muda, atualiza 'productsFiltered' para ser a mesma lista. Isso garante que, após a requisição que preenche 'products', a tebela receba os dados (evitar mostrar lista vazia).
 
