@@ -5,7 +5,7 @@ import type { CategoryType } from '../../../shared/types/CategoryType';
 import Button from '../../../shared/components/buttons/button/Button';
 import { useNavigate } from 'react-router';
 import { CategoryRoutesEnum } from '../routes';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LimitedSizeButton, LimitedSizeInput } from '../../../shared/components/styles/limited.styled';
 import { DisplayFlexJustifyBetween } from '../../../shared/components/styles/display.styled';
 import { useCategoryReducer } from '../../../store/reducers/categoryReducer/useCategoryReducer';
