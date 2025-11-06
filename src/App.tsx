@@ -8,8 +8,8 @@ import { useRequests } from './shared/hooks/useRequests';
 import { useEffect } from 'react';
 import { URL_USER } from './shared/constants/urls';
 import { MethodsEnum } from './shared/enums/methods.enums';
-import { useGlobalContext } from './shared/hooks/useGlobalContext';
 import { categoryScreens } from './modules/category/routes';
+import { useGlobalReducer } from './store/reducers/globalReducer/useGlobalReducer';
 
 const routes: RouteObject[] = [...LoginRoutes];
 const routesLoggedIn: RouteObject[] = [...productScreens, ...categoryScreens, ...firstScreenRoutes].map((route) => ({
@@ -24,7 +24,7 @@ const router = createBrowserRouter([...routes, ...routesLoggedIn]);
 
 function App() {
   const { contextHolder } = useNotification();
-  const { setUser } = useGlobalContext();
+  const { setUser } = useGlobalReducer();
   const { request } = useRequests();
 
   useEffect(() => {

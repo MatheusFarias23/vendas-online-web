@@ -1,13 +1,13 @@
 import { notification as notificationAntd } from 'antd';
-import { useGlobalContext } from './useGlobalContext';
 import { useEffect } from 'react';
+import { useGlobalReducer } from '../../store/reducers/globalReducer/useGlobalReducer';
 
 export const useNotification = () => {
   const [api, contextHolder] = notificationAntd.useNotification();
   //"api" Um objeto com metodos como 'success, info, error, etc'. Usa-se para disparar a notificação programatica.
   //"contextHolder" Um componente JSX que você precisa renderizar dentro do seu app para que a notificação apareça corretamente.
-  const { notification } = useGlobalContext();
-  //Aqui, pegamos a notificação armazenada no estado global usando 'useGlobalContext'. Toda ve que alguém chamar 'setNotification(...)', esse valor muda - e o 'useEffect' vai reagir a isso.
+  const { notification } = useGlobalReducer();
+  //Aqui, pegamos a notificação armazenada no estado global usando 'useGlobalReducer'. Toda ve que alguém chamar 'setNotification(...)', esse valor muda - e o 'useEffect' vai reagir a isso.
 
   useEffect(() => {
     //"useEffect" é chamado toda vez que a dependencia dentro de [] mudar. Aqui, ele será executado sempre que 'notificaiton' mudar.

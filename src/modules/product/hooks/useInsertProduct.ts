@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import type { InsertProduct } from '../../../shared/dtos/InsertProduct.dto';
 import { connectionAPIPost } from '../../../shared/functions/connection/connectionAPI';
 import { URL_PRODUCT } from '../../../shared/constants/urls';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
+import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 
 export const useInsertProduct = () => {
-  const { setNotification } = useGlobalContext();
+  const { setNotification } = useGlobalReducer();
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
   const [product, setProduct] = useState<InsertProduct>({

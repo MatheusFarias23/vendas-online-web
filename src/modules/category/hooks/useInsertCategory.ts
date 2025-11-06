@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { URL_CATEGORY } from '../../../shared/constants/urls';
 import { connectionAPIPost } from '../../../shared/functions/connection/connectionAPI';
 import type { InsertCategory } from '../../../shared/dtos/InsertCategory.dto';
-import { useGlobalContext } from '../../../shared/hooks/useGlobalContext';
+import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer';
 
 export const useInsertCategory = () => {
   const [loading, setLoading] = useState(false);
   const [disabledButton, setDisabledButton] = useState(true);
-  const { setNotification } = useGlobalContext();
+  const { setNotification } = useGlobalReducer();
   const [category, setCategory] = useState<InsertCategory>({
     name: '',
   });

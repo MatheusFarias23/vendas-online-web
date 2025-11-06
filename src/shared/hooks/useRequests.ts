@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useGlobalContext } from './useGlobalContext';
 import ConnectionAPI, {
   connectionAPIPost,
   type methodType,
@@ -10,11 +9,12 @@ import { ProductRoutesEnum } from '../../modules/product/routes';
 import { setAuthorizationToken } from '../functions/connection/auth';
 import type { AuthType } from '../types/AuthType';
 import type { NavigateFunction } from 'react-router';
+import { useGlobalReducer } from '../../store/reducers/globalReducer/useGlobalReducer';
 
 export const useRequests = () => {
   const [loading, setLoading] = useState(false);
   //Cria o estado "loading", que começa com false. Ele vai ser usado para indicar se a requisição está em andamento (ex: mostrar "carregando...").
-  const { setNotification, setUser } = useGlobalContext();
+  const { setNotification, setUser } = useGlobalReducer();
 
   const request = async <T>(
     url: string,
