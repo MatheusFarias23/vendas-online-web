@@ -22,19 +22,21 @@ jest.mock('../../../../shared/hooks/useRequests', () => ({
 
 let value = '';
 let type = '';
+const mockButtonInsert = jest.fn();
+const mockCancelButton = jest.fn();
 
 jest.mock('../../hooks/useInsertProduct', () => ({
   useInsertProduct: () => ({
     loading: false,
     product: mockProductInsert,
     disabledButton: false,
-    handleOnClickCancel: jest.fn(),
+    handleOnClickCancel: mockCancelButton,
     onChangeInput: (e: React.ChangeEvent<HTMLInputElement>, x: string) => {
       value = e.target.value;
       type = x;
     },
     handleChangeSelect: jest.fn(),
-    handleInsertProduct: jest.fn(),
+    handleInsertProduct: mockButtonInsert,
   }),
 }));
 
@@ -52,7 +54,7 @@ describe('Test Product Insert', () => {
     expect(getByTestId(ProductInsertTestIdEnum.PRODUCT_BUTTON_CANCEL)).toBeDefined();
   });
 
-  it('should call onChangeInput in change name', () => {
+  it('should call onChangeInput on change name', () => {
     const { getByTestId } = render(<ProductInsert />);
 
     const input = getByTestId(ProductInsertTestIdEnum.PRODUCT_INPUT_NAME);
@@ -61,7 +63,7 @@ describe('Test Product Insert', () => {
     expect(type).toEqual('name');
   });
 
-  it('should call onChangeInput in change price', () => {
+  it('should call onChangeInput on change price', () => {
     const { getByTestId } = render(<ProductInsert />);
 
     const input = getByTestId(ProductInsertTestIdEnum.PRODUCT_INPUT_PRICE);
@@ -70,13 +72,29 @@ describe('Test Product Insert', () => {
     expect(type).toEqual('price');
   });
 
-  it('should call onChangeInput in change image', () => {
+  it('should call onChangeInput on change image', () => {
     const { getByTestId } = render(<ProductInsert />);
 
     const input = getByTestId(ProductInsertTestIdEnum.PRODUCT_INPUT_IMAGE);
     fireEvent.change(input, { target: { value: 'http-image' } });
     expect(value).toEqual('http-image');
     expect(type).toEqual('image');
+  });
+
+  it('should call handleInsertProduct on click insert button', () => {
+    const { getByTestId } = render(<ProductInsert />);
+
+    const button = getByTestId(ProductInsertTestIdEnum.PRODUCT_BUTTON_INSERT);
+    fireEvent.click(button);
+    expect(mockButtonInsert).toHaveBeenCalled();
+  });
+
+  it('should call handleOnClickCancel on click cancel button', () => {
+    const { getByTestId } = render(<ProductInsert />);
+
+    const button = getByTestId(ProductInsertTestIdEnum.PRODUCT_BUTTON_CANCEL);
+    fireEvent.click(button);
+    expect(mockCancelButton).toHaveBeenCalled();
   });
 });
 
