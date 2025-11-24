@@ -1,0 +1,5 @@
+export enum HeaderTestIdEnum {
+    HEADER_MODAL = 'HEADER_MODAL',
+    HEADER_CONTAINER = 'HEADER_CONTAINER',
+    HEADER_LOGO = 'HEADER_LOGO',
+}

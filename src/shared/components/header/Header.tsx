@@ -3,6 +3,7 @@ import { HeaderContainer, LogoExit } from './header.style';
 import { useState } from 'react';
 import { Modal } from 'antd';
 import { useNavigate } from 'react-router';
+import { HeaderTestIdEnum } from './enum/headerTestIdEnum';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,9 +16,11 @@ const Header = () => {
   const hideModal = () => {
     setOpen(false);
   };
+
   return (
     <>
       <Modal
+        data-testid={HeaderTestIdEnum.HEADER_MODAL}
         title="Deseja sair da sua conta?"
         open={open}
         onOk={() => logout(navigate)}
@@ -25,8 +28,8 @@ const Header = () => {
         okText="Sim"
         cancelText="Não"
       ></Modal>
-      <HeaderContainer>
-        <LogoExit onClick={showModal} />
+      <HeaderContainer data-testid={HeaderTestIdEnum.HEADER_CONTAINER}>
+        <LogoExit onClick={showModal} data-testid={HeaderTestIdEnum.HEADER_LOGO} />
       </HeaderContainer>
     </>
   );

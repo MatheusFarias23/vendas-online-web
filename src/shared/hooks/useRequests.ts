@@ -42,7 +42,7 @@ export const useRequests = () => {
     setLoading(true);
     await connectionAPIPost<AuthType>(URL_AUTH, body)
       .then((result) => {
-        setNotification('Login...', 'success', 'Você entrou em sua conta.');
+        setNotification('Logado', 'success', 'Você entrou em sua conta.');
         setUser(result.user);
         setAuthorizationToken(result.accessToken);
         navigate(ProductRoutesEnum.PRODUCT);

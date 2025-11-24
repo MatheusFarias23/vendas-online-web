@@ -1,7 +1,7 @@
 import { Input as InputAntd } from 'antd';
 import type { InputProps as InputPropsAntd } from 'antd';
 import { BoxInput, TitleInput } from './Input.styles';
-import { InputTestIdEnum } from './_tests_/inputTestIdEnum';
+import { InputTestIdEnum } from './enum/inputTestIdEnum';
 
 export interface InputProps extends InputPropsAntd {
   title?: string;
