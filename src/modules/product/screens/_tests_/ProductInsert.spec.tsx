@@ -40,7 +40,7 @@ jest.mock('../../hooks/useInsertProduct', () => ({
   }),
 }));
 
-describe('Test Product Insert', () => {
+describe('Test Insert Product', () => {
   it('should render', () => {
     const { getByTestId } = render(<ProductInsert />);
     waitFor(() => {
